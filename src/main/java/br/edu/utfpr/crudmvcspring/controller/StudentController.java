@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,18 +47,35 @@ public class StudentController {
         return mv;
     }
 
+    /**
+     *
+     * Post com encaminhamento em caso de erro e redirecionamento em caso de sucesso.
+     *
+     * @param dto
+     * @param errors
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping
-    public RedirectView save(@Validated StudentDTO  dto, Errors errors, RedirectAttributes redirectAttributes){
+    public ModelAndView save(@Validated StudentDTO  dto, Errors errors, RedirectAttributes redirectAttributes){
+
+        //imprime o código de erro e o nome do atributo
+        for(FieldError e: errors.getFieldErrors()){
+            log.info(e.getField() + " -> " + e.getCode());
+        }
         //verifica os erros de validação
         if(errors.hasErrors()){
-
-            redirectAttributes.addFlashAttribute("errors", errors.getAllErrors());
-            return new RedirectView("alunos");
+            ModelAndView mv = new ModelAndView("form-students");
+            //salva o DTO para manter tais dados em caso de erro
+            mv.addObject("dto", dto);
+            //salva os erros para serem apresentados
+            mv.addObject("errors", errors.getAllErrors());
+            //encaminhamento para a visão
+            return mv;
         }
 
         log.info("Persistindo o aluno com email {}", dto.getEmail());
         log.info("Persistindo o DTO {}", dto);
-
 
         Student student = studentMapper.toEntity(dto);
         studentService.save(student);
@@ -71,18 +89,9 @@ public class StudentController {
         redirectAttributes.addFlashAttribute("students", studentDTOs);
         redirectAttributes.addFlashAttribute("msg", "Aluno salvo com sucesso!");
 
-        return new RedirectView("alunos");
+        //redirecionamento para a rota
+        return new ModelAndView("redirect:alunos");
     }
 
-//    @GetMapping
-//    public ModelAndView findAll(){
-//        List<Student> students = studentService.findAll();
-//
-//        //converte para DTO
-//        List<StudentDTO> studentDTOS = students.stream().map(t -> studentMapper.toDto(t)).collect(Collectors.toList());
-//
-//        //encaminha para redesenhar a página
-//        ModelAndView mv = new ModelAndView("/", "students", students);
-//        return mv;
-//    }
+
 }

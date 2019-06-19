@@ -8,7 +8,7 @@
     <jsp:body>
         <div class="container">
             <c:if test="${not empty msg}">
-                <div class="card-panel blue">
+                <div class="card-panel green lighten-1">
                     <span class="white-text">${msg}</span>
                 </div>
             </c:if>
@@ -33,7 +33,7 @@
                     <form action="alunos" method="post">
 
                         <label for="name">Nome Completo</label>
-                        <input name="name" type="text"/>
+                        <input name="name" type="text" value="${dto.name}"/>
 
                         <label for="name">Gênero</label>
                         <select name="gender">
@@ -42,13 +42,15 @@
                         </select>
 
                         <label for="email">Email</label>
-                        <input name="email" type="text"/>
+                        <input name="email" type="text" value="${dto.email}"/>
 
                         <label for="birthDate">Data de Nascimento</label>
-                        <input name="birthDate" type="text"/>
+                        <fmt:formatDate var="birthDateFormatted" value="${dto.birthDate}"
+                                        pattern="dd/MM/yyyy" />
+                        <input id="birthDate" name="birthDate" type="text" value="${birthDateFormatted}"/>
 
                         <label for="course">Curso</label>
-                        <input name="course" type="text"/>
+                        <input name="course" type="text" value="${dto.course}"/>
 
                         <button class="btn waves-effect waves-light right" type="submit">Salvar
                             <i class="material-icons right">save</i>

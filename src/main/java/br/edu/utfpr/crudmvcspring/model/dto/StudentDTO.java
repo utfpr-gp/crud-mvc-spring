@@ -10,10 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
@@ -22,7 +19,6 @@ import java.util.Date;
 @ToString
 public class StudentDTO {
 
-    @NotNull(message = "O campo de registro acadêmico é obrigatório.")
     private Long registration;
 
     @NotEmpty(message = "O gênero do aluno é obrigatório")
@@ -33,6 +29,7 @@ public class StudentDTO {
     private String name;
 
     @NotNull(message = "A data de nascimento é obrigatória")
+    @Past(message = "A data de nascimento não é válida")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
