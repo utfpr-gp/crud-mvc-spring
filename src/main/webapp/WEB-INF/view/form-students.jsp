@@ -7,16 +7,23 @@
 <t:template title="Alunos">
     <jsp:body>
         <div class="container">
+            <c:if test="${not empty msg}">
+                <div class="card-panel blue">
+                    <span class="white-text">${msg}</span>
+                </div>
+            </c:if>
+
             <h1>Cadastro de Alunos</h1>
             <div class="row">
                 <div class="col s12">
-                    <a class="btn-large waves-effect waves-light">Novo</a>
+                    <a class="btn-large waves-effect waves-light" href="alunos">Novo</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
                     <!-- -->
                     <form action="alunos" method="post">
+
                         <label for="name">Nome Completo</label>
                         <input name="name" type="text"/>
 
@@ -51,6 +58,7 @@
                             <th>Gênero</th>
                             <th>Data de Nascimento</th>
                             <th>Curso</th>
+                            <th></th>
                         </tr>
                         </thead>
 
@@ -63,6 +71,10 @@
                                     <fmt:formatDate value="${s.birthDate}" pattern="dd/MM/yyyy"/>
                                 </td>
                                 <td>${s.course}</td>
+                                <td>
+                                    <a href="">Editar</a>
+                                    <a href="">Remover</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

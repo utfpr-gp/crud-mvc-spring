@@ -57,6 +57,7 @@ public class StudentController {
                 .map(s -> studentMapper.toResponseDto(s))
                 .collect(Collectors.toList());
         redirectAttributes.addFlashAttribute("students", studentDTOs);
+        redirectAttributes.addFlashAttribute("msg", "Aluno salvo com sucesso!");
 
         return new RedirectView("alunos");
     }
