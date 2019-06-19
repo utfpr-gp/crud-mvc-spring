@@ -72,8 +72,8 @@
                                 </td>
                                 <td>${s.course}</td>
                                 <td>
-                                    <a href="">Editar</a>
-                                    <a href="">Remover</a>
+                                    <a href=""><i class="material-icons">edit</i></a>
+                                    <a href=""><i class="material-icons red-text">delete</i></a>
                                 </td>
                             </tr>
                         </c:forEach>
