@@ -18,6 +18,12 @@ public class StudentMapper {
         return dto;
     }
 
+    public StudentDTO toResponseDto(Student entity) {
+        StudentDTO dto = mapper.map(entity, StudentDTO.class);
+        dto.setGender(entity.getGender().getName());
+        return dto;
+    }
+
     public Student toEntity(StudentDTO dto) throws ParseException {
         Student entity = mapper.map(dto, Student.class);
         return entity;

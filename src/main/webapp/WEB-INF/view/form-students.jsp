@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:template title="Alunos">
@@ -14,58 +16,58 @@
             <div class="row">
                 <div class="col s12">
                     <!-- -->
-                    <form:form modelAttribute="student" action="/alunos" method="post">
+                    <form action="alunos" method="post">
                         <label for="name">Nome Completo</label>
-                        <form:input path="name" type="text"/>
-                        <form:errors path="name"/>
+                        <input name="name" type="text"/>
+
+                        <label for="name">Gênero</label>
+                        <select name="gender">
+                            <option value="MASCULINE">Masculino</option>
+                            <option value="FEMININE">Feminino</option>
+                        </select>
 
                         <label for="email">Email</label>
-                        <form:input path="email" type="text"/>
-                        <form:errors path="email"/>
+                        <input name="email" type="text"/>
 
                         <label for="birthDate">Data de Nascimento</label>
-                        <form:input path="birthDate" type="text"/>
-                        <form:errors path="birthDate"/>
+                        <input name="birthDate" type="text"/>
 
                         <label for="course">Curso</label>
-                        <form:input path="course" type="text"/>
-                        <form:errors path="course"/>
+                        <input name="course" type="text"/>
 
-                        <form:button class="btn waves-effect waves-light right" type="submit">Salvar
+                        <button class="btn waves-effect waves-light right" type="submit">Salvar
                             <i class="material-icons right">save</i>
-                        </form:button>
-                    </form:form>
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
+                    <c:if test="${not empty students}">
                     <table>
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
+                            <th>Nome</th>
+                            <th>Gênero</th>
+                            <th>Data de Nascimento</th>
+                            <th>Curso</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
+                        <c:forEach var="s" items="${students}">
+                            <tr>
+                                <td>${s.name}</td>
+                                <td>${s.gender}</td>
+                                <td>
+                                    <fmt:formatDate value="${s.birthDate}" pattern="dd/MM/yyyy"/>
+                                </td>
+                                <td>${s.course}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
+                    </c:if>
                 </div>
             </div>
         </div>

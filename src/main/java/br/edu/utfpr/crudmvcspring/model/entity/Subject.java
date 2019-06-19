@@ -39,12 +39,12 @@ public class Subject {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week")
-    private DayOfWeek dayOfWeek;
+    private DayOfWeekEnum dayOfWeek;
 
     @ManyToOne
     private Professor professor;
 
-    public Subject(Professor professor, String acronym, String name, Integer startHour, Integer endHour, DayOfWeek dayOfWeek) {
+    public Subject(Professor professor, String acronym, String name, Integer startHour, Integer endHour, DayOfWeekEnum dayOfWeek) {
         this.professor = professor;
         this.acronym = acronym;
         this.name = name;

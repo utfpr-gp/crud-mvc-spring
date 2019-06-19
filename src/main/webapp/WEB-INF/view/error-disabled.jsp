@@ -11,7 +11,7 @@
         </p>
         <div class="row">
             <div class="col s12 center">
-                <img class="img-responsive" src="/static/error.png" height="500px">
+                <img class="img-responsive" src="assets/res/img/404.png" height="500px">
             </div>
         </div>
     </jsp:body>

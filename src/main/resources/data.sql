@@ -1,2 +1,2 @@
-INSERT INTO students (name, course, email) VALUES ('Ronaldo Brasil', 'TSI', 'ronaldo@gmail.com'),
-('Romário Brasil', 'TSI', 'romario@gmail.com'), ('João Brasil', 'TSI', 'joão@gmail.com');
+INSERT INTO students (name, course, email, gender, birth_date) VALUES ('Ronaldo Brasil', 'TSI', 'ronaldo@gmail.com', 'MASCULINE', '1984-10-01'),
+('Romário Brasil', 'TSI', 'romario@gmail.com', 'MASCULINE', '1984-10-20'), ('João Brasil', 'TSI', 'joão@gmail.com', 'MASCULINE', '1974-10-30');

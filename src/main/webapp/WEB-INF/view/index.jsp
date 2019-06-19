@@ -5,10 +5,8 @@
 <t:template title="Alunos">
     <jsp:body>
         <div class="container">
-            <h1>Início</h1>
-
-
-
+            <h1>Sistema Acadêmico da UTFPR</h1>
+            <a href="alunos">Cadastro de Alunos</a>
         </div>
     </jsp:body>
 </t:template>

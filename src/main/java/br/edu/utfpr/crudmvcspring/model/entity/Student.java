@@ -15,6 +15,9 @@ public class Student {
     @Column(name = "id")
     private Long registration;
 
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
+
     private Date created;
     private Date updated;
 

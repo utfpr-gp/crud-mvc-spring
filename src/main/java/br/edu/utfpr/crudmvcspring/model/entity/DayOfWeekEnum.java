@@ -1,12 +1,12 @@
 package br.edu.utfpr.crudmvcspring.model.entity;
 
-public enum DayOfWeek {
+public enum DayOfWeekEnum {
     SEGUNDA("Segunda-feira"), TERCA("Terça-feira"),
     QUARTA("Quarta-feira"), QUINTA("Quinta-feira"),
     SEXTA("Sexta-feira");
 
     private String dayOfWeek;
-    DayOfWeek(String day){
+    DayOfWeekEnum(String day){
       this.dayOfWeek = day;
     }
 
