@@ -13,6 +13,14 @@
                 </div>
             </c:if>
 
+            <c:if test="${not empty errors}">
+                <div class="card-panel red">
+                    <c:forEach var="e" items="${errors}">
+                        <span class="white-text">${e.getDefaultMessage()}</span><br>
+                    </c:forEach>
+                </div>
+            </c:if>
+
             <h1>Cadastro de Alunos</h1>
             <div class="row">
                 <div class="col s12">
@@ -54,6 +62,7 @@
                     <table>
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>Nome</th>
                             <th>Gênero</th>
                             <th>Data de Nascimento</th>
@@ -65,6 +74,7 @@
                         <tbody>
                         <c:forEach var="s" items="${students}">
                             <tr>
+                                <td>${s.registration}</td>
                                 <td>${s.name}</td>
                                 <td>${s.gender}</td>
                                 <td>

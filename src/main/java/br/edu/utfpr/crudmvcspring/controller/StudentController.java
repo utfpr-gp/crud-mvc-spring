@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,21 +33,31 @@ public class StudentController {
 
     @GetMapping
     public ModelAndView showForm() {
-        log.info("Mostrando o formulário de cadastro de aluno");
+        log.info("Mostrando o formulário de cadastro de aluno com lista de alunos");
         ModelAndView mv = new ModelAndView("form-students");
         List<Student> students = studentService.findAll();
 
+        //lista de alunos
         List<StudentDTO> studentDTOs = students.stream()
                 .map(s -> studentMapper.toResponseDto(s))
                 .collect(Collectors.toList());
         mv.addObject("students", studentDTOs);
+
         return mv;
     }
 
     @PostMapping
-    public RedirectView save(StudentDTO  dto, RedirectAttributes redirectAttributes){
+    public RedirectView save(@Validated StudentDTO  dto, Errors errors, RedirectAttributes redirectAttributes){
+        //verifica os erros de validação
+        if(errors.hasErrors()){
+
+            redirectAttributes.addFlashAttribute("errors", errors.getAllErrors());
+            return new RedirectView("alunos");
+        }
+
         log.info("Persistindo o aluno com email {}", dto.getEmail());
         log.info("Persistindo o DTO {}", dto);
+
 
         Student student = studentMapper.toEntity(dto);
         studentService.save(student);

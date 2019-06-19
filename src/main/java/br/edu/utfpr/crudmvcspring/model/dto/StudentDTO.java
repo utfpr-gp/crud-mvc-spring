@@ -32,12 +32,12 @@ public class StudentDTO {
     @Pattern(regexp = "^(\\s?[A-ZÀ-Ú][a-zà-ú]+)+(\\s[a-zà-ú]*)?(\\s[A-ZÀ-Ú][a-zà-ú]*)+", message = "Insira o seu nome completo iniciando com letras maíusculas.")
     private String name;
 
-    @NotEmpty(message = "A data de nascimento é obrigatória")
+    @NotNull(message = "A data de nascimento é obrigatória")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date birthDate;
 
     @NotEmpty(message = "O nome do curso é obrigatório.")
-    @Length(min = 2, max = 100, message = "O nome do curso de conter no mínimo 2 e máximo 100 caracteres.")
+    @Length(min = 2, max = 100, message = "O nome do curso deve conter no mínimo 2 e máximo 100 caracteres.")
     private String course;
 
     @Email(message = "Insira um email válido.")
