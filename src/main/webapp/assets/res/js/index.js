@@ -3,6 +3,7 @@ $(document).ready(function () {
         $('#year').html(getCurrentYear());
         $('select').material_select();
         $(".button-collapse").sideNav();
+        $('.modal').modal();
 });
 
 function getCurrentYear(){

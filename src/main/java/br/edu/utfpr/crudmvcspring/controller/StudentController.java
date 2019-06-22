@@ -16,7 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/alunos")
@@ -86,11 +88,36 @@ public class StudentController {
         List<StudentDTO> studentDTOs = students.stream()
                 .map(s -> studentMapper.toResponseDto(s))
                 .collect(Collectors.toList());
-        redirectAttributes.addFlashAttribute("students", studentDTOs);
+        //redirectAttributes.addFlashAttribute("students", studentDTOs);
         redirectAttributes.addFlashAttribute("msg", "Aluno salvo com sucesso!");
 
         //redirecionamento para a rota
         return new ModelAndView("redirect:alunos");
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
+
+        log.info("Mostrando o formulário de edição de aluno com lista de alunos");
+        ModelAndView mv = new ModelAndView("form-students");
+
+        Optional<Student> oStudent = studentService.findById(id);
+
+        if(!oStudent.isPresent()){
+            throw new EntityNotFoundException("O aluno não foi encontrado pelo id informado.");
+        }
+
+        StudentDTO studentDTO = studentMapper.toResponseDto(oStudent.get());
+        mv.addObject("dto", studentDTO);
+        return mv;
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        log.info("Removendo um aluno com id {}", id);
+        this.studentService.delete(id);
+        redirectAttributes.addFlashAttribute("msg", "Aluno removido com sucesso!");
+        return "redirect:/alunos";
     }
 
 

@@ -31,6 +31,8 @@
                 <div class="col s12">
                     <!-- -->
                     <form action="alunos" method="post">
+                        <!-- campo usado em caso de edição -->
+                        <input name="registration" type="hidden" value="${dto.registration}"/>
 
                         <label for="name">Nome Completo</label>
                         <input name="name" type="text" value="${dto.name}"/>
@@ -58,6 +60,22 @@
                     </form>
                 </div>
             </div>
+
+                    <div id="modal-delete" class="modal">
+                        <form action="${pageContext.request.contextPath}/alunos/1" method="post">
+
+                            <input type="hidden" name="_method" value="DELETE"/>
+
+                            <div class="modal-content">
+                                <h4>Você tem certeza que deseja remover o item?</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="modal-close btn-flat waves-effect waves-light grey">Cancelar</button>
+                                <button type="submit" class="modal-close btn waves-effect waves-light gray">Sim</button>
+                            </div>
+                        </form>
+                    </div>
+
             <div class="row">
                 <div class="col s12">
                     <c:if test="${not empty students}">
@@ -84,8 +102,8 @@
                                 </td>
                                 <td>${s.course}</td>
                                 <td>
-                                    <a href=""><i class="material-icons">edit</i></a>
-                                    <a href=""><i class="material-icons red-text">delete</i></a>
+                                    <a href="alunos/${s.registration}"><i class="material-icons">edit</i></a>
+                                    <a href="#modal-delete"><i class="material-icons red-text">delete</i></a>
                                 </td>
                             </tr>
                         </c:forEach>
