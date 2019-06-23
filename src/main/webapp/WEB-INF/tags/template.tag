@@ -39,14 +39,16 @@
         <nav>
             <div class="nav-wrapper blue">
                 <div class="container">
-                    <a class="brand-logo" href="index.jsp"> <img class="utf-logo"
-                                                                 src="assets/res/img/logo.png"></img>
-                    </a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i
-                        class="material-icons">menu</i></a>
+                    <a class="brand-logo" href="index.jsp">
+                        <img class="utf-logo" src="assets/res/img/logo.png"/>
+                    </a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                        <i class="material-icons">menu</i>
+                    </a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="index.jsp">Início</a></li>
                     </ul>
-                    <ul class="side-nav white" id="mobile-demo">
+                    <ul class="sidenav white" id="mobile-demo">
                         <div class="row">
                             <div class="col s8 offset-s2">
                                 <div class="center">
@@ -89,7 +91,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="assets/lib/jquery/jquery.mask.min.js"></script>
 <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        src="assets/lib/materialize/js/materialize.js"></script>
 <script src="assets/res/js/index.js"></script>
 </body>
 </html>

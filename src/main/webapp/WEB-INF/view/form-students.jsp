@@ -62,12 +62,12 @@
             </div>
 
                     <div id="modal-delete" class="modal">
-                        <form action="${pageContext.request.contextPath}/alunos/1" method="post">
+                        <form action="" method="post">
 
                             <input type="hidden" name="_method" value="DELETE"/>
 
                             <div class="modal-content">
-                                <h4>Você tem certeza que deseja remover o item?</h4>
+                                <h4>Você tem certeza que deseja remover <strong id="strong-name"></strong>?</h4>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="modal-close btn-flat waves-effect waves-light grey">Cancelar</button>
@@ -103,7 +103,7 @@
                                 <td>${s.course}</td>
                                 <td>
                                     <a href="alunos/${s.registration}"><i class="material-icons">edit</i></a>
-                                    <a href="#modal-delete"><i class="material-icons red-text">delete</i></a>
+                                    <a href="#modal-delete" class="modal-trigger" data-url="${pageContext.request.contextPath}/alunos/${s.registration}" data-name="${s.name}"><i class="material-icons red-text">delete</i></a>
                                 </td>
                             </tr>
                         </c:forEach>
