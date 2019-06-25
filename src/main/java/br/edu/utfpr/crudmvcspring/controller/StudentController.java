@@ -1,5 +1,6 @@
 package br.edu.utfpr.crudmvcspring.controller;
 
+import br.edu.utfpr.crudmvcspring.exception.InvalidParamsException;
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.mapper.StudentMapper;
@@ -100,6 +101,10 @@ public class StudentController {
 
         log.info("Mostrando o formulário de edição de aluno com lista de alunos");
         ModelAndView mv = new ModelAndView("form-students");
+
+        if(id < 0){
+            throw new InvalidParamsException("O identificador não pode ser negativo.");
+        }
 
         Optional<Student> oStudent = studentService.findById(id);
 

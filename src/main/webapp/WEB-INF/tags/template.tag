@@ -39,14 +39,14 @@
         <nav>
             <div class="nav-wrapper blue">
                 <div class="container">
-                    <a class="brand-logo" href="index.jsp">
+                    <a class="brand-logo" href="">
                         <img class="utf-logo" src="assets/res/img/logo.png"/>
                     </a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger">
                         <i class="material-icons">menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="index.jsp">Início</a></li>
+                        <li><a href="">Início</a></li>
                     </ul>
                     <ul class="sidenav white" id="mobile-demo">
                         <div class="row">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <li><a href="index.jsp">Início</a></li>
+                        <li><a href="">Início</a></li>
 
                     </ul>
                 </div>
