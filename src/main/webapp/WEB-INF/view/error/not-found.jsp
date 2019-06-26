@@ -4,7 +4,7 @@
 <t:template title="Erro!!">
     <jsp:body>
         <h2>Ooops!!</h2>
-        <p>A página solicitada não foi encontrada!</p>
+        <p>O recurso solicitado não foi encontrado!</p>
 
         <div class="row">
             <div class="col s12 center">

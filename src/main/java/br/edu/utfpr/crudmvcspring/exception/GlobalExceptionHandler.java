@@ -1,22 +1,19 @@
 package br.edu.utfpr.crudmvcspring.exception;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 
 @ControllerAdvice
@@ -42,7 +39,7 @@ public class GlobalExceptionHandler {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("message", e.getMessage());
 		mv.addObject("url", req.getRequestURL());
-		mv.setViewName("error-handler");
+		mv.setViewName("error/error-handler");
 		return mv;
 	}
 
@@ -58,8 +55,31 @@ public class GlobalExceptionHandler {
 	public String entityNotFound(HttpServletRequest req, Exception e) throws Exception {
 
 		log.error("[URL] : {}", req.getRequestURL(), e);
-		return "not-found";
+		return "error/not-found";
 	}
+
+	/**
+	 *
+	 * Trata do código de status 405
+	 * @param request
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ModelAndView handleError405(HttpServletRequest request, Exception e) {
+		ModelAndView mav = new ModelAndView("error/error-405");
+		mav.addObject("exception", e);
+		return mav;
+	}
+
+//	@ExceptionHandler(value = {NoHandlerFoundException.class})
+//	@ResponseStatus(value= HttpStatus.NOT_FOUND)
+//	public ModelAndView handleError4xx(HttpServletRequest request, Exception e) {
+//		ModelAndView mav = new ModelAndView("error/4xx");
+//		mav.addObject("message", e.getMessage());
+//		mav.addObject("url", request.getRequestURL());
+//		return mav;
+//	}
 
 	/**
 	 *

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -15,13 +16,12 @@ import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import java.util.Locale;
 
 @SpringBootApplication
+@ServletComponentScan
 public class CrudMvcSpringApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrudMvcSpringApplication.class, args);
 	}
-
-
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -38,18 +38,4 @@ public class CrudMvcSpringApplication {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
 
-	@Bean
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		return messageSource;
-	}
-
-	@Bean
-	public LocalValidatorFactoryBean validator() {
-		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-		bean.setValidationMessageSource(messageSource());
-		return bean;
-	}
 }
