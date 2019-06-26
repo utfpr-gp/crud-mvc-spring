@@ -118,7 +118,7 @@ public class StudentController {
         return mv;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/d/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         log.info("Removendo um aluno com id {}", id);
         this.studentService.delete(id);

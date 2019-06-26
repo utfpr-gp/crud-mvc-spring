@@ -62,6 +62,7 @@ public class GlobalExceptionHandler {
 	/**
 	 *
 	 * Trata do código de status 405.
+	 *
 	 * @param request
 	 * @param e
 	 * @return
@@ -73,14 +74,26 @@ public class GlobalExceptionHandler {
 		return mav;
 	}
 
-//	@ExceptionHandler(value = {NoHandlerFoundException.class})
-//	@ResponseStatus(value= HttpStatus.NOT_FOUND)
-//	public ModelAndView handleError4xx(HttpServletRequest request, Exception e) {
-//		ModelAndView mav = new ModelAndView("error/4xx");
-//		mav.addObject("message", e.getMessage());
-//		mav.addObject("url", request.getRequestURL());
-//		return mav;
-//	}
+	/**
+	 *
+	 * Quando o Spring não encontra um tratador de exception, ele envia 404.
+	 * Antes de enviar, ele gera o NoHandlerFoundException.
+	 * Isso somente se spring.mvc.throw-exception-if-no-handler-found=true
+	 *
+	 * Porém, como já há um arquivo com o nome igual ao código de erro na pasta /error, 404.jsp, este arquivo será apresentado.
+	 * Portanto, este tratamento somente será executado caso o arquivo 404.jsp seja renomeado ou removido.
+	 * @param request
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(value = {NoHandlerFoundException.class})
+	@ResponseStatus(value= HttpStatus.NOT_FOUND)
+	public ModelAndView handleError4xx(HttpServletRequest request, Exception e) {
+		ModelAndView mav = new ModelAndView("error/4xx");
+		mav.addObject("message", e.getMessage());
+		mav.addObject("url", request.getRequestURL());
+		return mav;
+	}
 
 	/**
 	 *
