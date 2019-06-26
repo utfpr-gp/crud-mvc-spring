@@ -91,6 +91,6 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(value = {DataIntegrityViolationException.class, ConstraintViolationException.class})
 	public String handleDatabaseException(HttpServletRequest req, Exception e) {
-		return "error-database";
+		return "error/error-database";
 	}
 }

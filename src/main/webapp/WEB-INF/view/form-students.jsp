@@ -35,7 +35,7 @@
                         <input name="registration" type="hidden" value="${dto.registration}"/>
 
                         <label for="name">Nome Completo</label>
-                        <input name="name" type="text" value="${dto.name}"/>
+                        <input name="name" ${not empty dto ? 'readonly' : ''} type="text" value="${dto.name}"/>
 
                         <label for="name">Gênero</label>
                         <select name="gender">

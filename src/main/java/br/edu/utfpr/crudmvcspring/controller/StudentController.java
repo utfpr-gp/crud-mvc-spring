@@ -81,6 +81,7 @@ public class StudentController {
         log.info("Persistindo o DTO {}", dto);
 
         Student student = studentMapper.toEntity(dto);
+        log.info("Persistindo o entidade {}", student);
         studentService.save(student);
 
         //prepara a lista de alunos
