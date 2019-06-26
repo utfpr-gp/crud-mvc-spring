@@ -1,16 +1,14 @@
 package br.edu.utfpr.crudmvcspring.model.dto;
 
-import br.edu.utfpr.crudmvcspring.model.entity.GenderEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -29,9 +27,11 @@ public class StudentDTO {
     private String name;
 
     @NotNull(message = "A data de nascimento é obrigatória")
-    @Past(message = "A data de nascimento não é válida")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date birthDate;
+    @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
+            message = "A data precisa estar formatada como dd/MM/yyyy")
+    //@Past(message = "A data de nascimento não é válida")
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
+    private String birthDate;
 
     @NotEmpty(message = "O nome do curso é obrigatório.")
     @Length(min = 2, max = 100, message = "O nome do curso deve conter no mínimo 2 e máximo 100 caracteres.")
@@ -41,4 +41,21 @@ public class StudentDTO {
     @NotEmpty(message = "O email é obrigatório.")
     private String email;
 
+    /**
+     *
+     * Usado pelo ModelMapper para transformar um DTO para entidade.
+     * Precisa retornar Date ao invés de String para facilitar a conversão.
+     * No DTO, a data é tratada como String, mas na Entity é tratada como Date.
+     * @return
+     */
+    public Date getBirthDate() {
+        Date d = null;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            d = format.parse(birthDate);
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return d;
+    }
 }

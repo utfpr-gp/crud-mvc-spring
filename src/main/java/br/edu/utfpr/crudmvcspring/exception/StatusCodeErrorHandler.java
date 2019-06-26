@@ -7,6 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * Em contrução! Não funciona ainda.
+ */
 @Controller
 @RequestMapping("/errors")
 public class StatusCodeErrorHandler {

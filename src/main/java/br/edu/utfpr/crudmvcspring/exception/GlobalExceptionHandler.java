@@ -45,7 +45,8 @@ public class GlobalExceptionHandler {
 
 	/**
 	 *
-	 * Tratador de erro mais específico
+	 * Tratador de erro mais específico.
+	 * Entidade não encontrada pelo id.
 	 * @param req
 	 * @param e
 	 * @return
@@ -60,7 +61,7 @@ public class GlobalExceptionHandler {
 
 	/**
 	 *
-	 * Trata do código de status 405
+	 * Trata do código de status 405.
 	 * @param request
 	 * @param e
 	 * @return
