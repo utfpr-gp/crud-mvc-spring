@@ -26,6 +26,7 @@ public class StudentDTO {
     @Pattern(regexp = "^(\\s?[A-ZÀ-Ú][a-zà-ú]+)+(\\s[a-zà-ú]*)?(\\s[A-ZÀ-Ú][a-zà-ú]*)+", message = "Insira o seu nome completo iniciando com letras maíusculas.")
     private String name;
 
+    @NotEmpty(message = "A data de nascimento é obrigatória")
     @NotNull(message = "A data de nascimento é obrigatória")
     @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
             message = "A data precisa estar formatada como dd/MM/yyyy")
