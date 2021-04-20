@@ -1,4 +1,4 @@
-package br.edu.utfpr.crudmvcspring.model.service;
+package br.edu.utfpr.crudmvcspring.service;
 
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.repository.StudentRepository;

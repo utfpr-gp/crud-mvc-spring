@@ -35,16 +35,16 @@
                         <input name="registration" type="hidden" value="${dto.registration}"/>
 
                         <label for="name">Nome Completo</label>
-                        <input name="name" ${not empty dto ? 'readonly' : ''} type="text" value="${dto.name}"/>
+                        <input id="name" name="name" ${not empty dto ? 'readonly' : ''} type="text" value="${dto.name}"/>
 
-                        <label for="name">Gênero</label>
-                        <select name="gender">
+                        <label for="gender">Gênero</label>
+                        <select id="gender" name="gender">
                             <option value="MASCULINE">Masculino</option>
                             <option value="FEMININE">Feminino</option>
                         </select>
 
                         <label for="email">Email</label>
-                        <input name="email" type="text" value="${dto.email}"/>
+                        <input id="email" name="email" type="text" value="${dto.email}"/>
 
                         <label for="birthDate">Data de Nascimento</label>
                         <fmt:formatDate var="birthDateFormatted" value="${dto.birthDate}"
@@ -52,7 +52,7 @@
                         <input id="birthDate" name="birthDate" type="text" value="${birthDateFormatted}"/>
 
                         <label for="course">Curso</label>
-                        <input name="course" type="text" value="${dto.course}"/>
+                        <input id="course" name="course" type="text" value="${dto.course}"/>
 
                         <button class="btn waves-effect waves-light right" type="submit">Salvar
                             <i class="material-icons right">save</i>

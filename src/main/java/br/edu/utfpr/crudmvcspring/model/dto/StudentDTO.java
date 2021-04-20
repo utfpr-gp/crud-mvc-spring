@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 import javax.validation.constraints.*;
 import java.text.ParseException;
@@ -34,7 +34,7 @@ public class StudentDTO {
     private String birthDate;
 
     @NotEmpty(message = "O nome do curso é obrigatório.")
-    @Length(min = 2, max = 100, message = "O nome do curso deve conter no mínimo 2 e máximo 100 caracteres.")
+    @Size(min = 2, max = 100, message = "O nome do curso deve conter no mínimo 2 e máximo 100 caracteres.")
     private String course;
 
     @Email(message = "Insira um email válido.")

@@ -4,7 +4,7 @@ import br.edu.utfpr.crudmvcspring.exception.InvalidParamsException;
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.mapper.StudentMapper;
-import br.edu.utfpr.crudmvcspring.model.service.StudentService;
+import br.edu.utfpr.crudmvcspring.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -118,7 +117,7 @@ public class StudentController {
         return mv;
     }
 
-    @DeleteMapping("/d/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         log.info("Removendo um aluno com id {}", id);
         this.studentService.delete(id);
