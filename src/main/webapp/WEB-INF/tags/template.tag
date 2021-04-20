@@ -88,10 +88,11 @@
         </div>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+
+<script src="assets/lib/jquery/jquery-3.3.1.min.js"></script>
 <script src="assets/lib/jquery/jquery.mask.min.js"></script>
-<script
-        src="assets/lib/materialize/js/materialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!--script src="assets/lib/materialize/js/materialize.js"></script-->
 <script src="assets/res/js/index.js"></script>
 </body>
 </html>

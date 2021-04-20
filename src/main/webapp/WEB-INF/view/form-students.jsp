@@ -38,11 +38,12 @@
                         <input id="name" name="name" ${not empty dto ? 'readonly' : ''} type="text" value="${dto.name}"/>
 
                         <label for="gender">Gênero</label>
+                        <div class="input-field">
                         <select id="gender" name="gender">
                             <option value="MASCULINE">Masculino</option>
                             <option value="FEMININE">Feminino</option>
                         </select>
-
+                        </div>
                         <label for="email">Email</label>
                         <input id="email" name="email" type="text" value="${dto.email}"/>
 
@@ -113,5 +114,6 @@
                 </div>
             </div>
         </div>
+
     </jsp:body>
 </t:template>
