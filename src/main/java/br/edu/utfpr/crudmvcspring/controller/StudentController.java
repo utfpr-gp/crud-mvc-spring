@@ -8,6 +8,7 @@ import br.edu.utfpr.crudmvcspring.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -121,6 +122,12 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         log.info("Removendo um aluno com id {}", id);
+        Optional<Student> o = this.studentService.findById(id);
+
+        if (!o.isPresent()) {
+            throw new EntityNotFoundException("Erro ao remover, registro não encontrado para o id " + id);
+        }
+
         this.studentService.delete(id);
         redirectAttributes.addFlashAttribute("msg", "Aluno removido com sucesso!");
         return "redirect:/alunos";

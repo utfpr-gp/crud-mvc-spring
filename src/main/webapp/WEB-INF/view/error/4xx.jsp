@@ -6,7 +6,8 @@
     <jsp:body>
         <h2>Ooops!!!</h2>
 
-        <p>A página requisitada não foi encontrada! Tente novamente.</p>
+        <p>Os parâmetros são inválidos.</p>
+
 
         <div class="row">
             <div class="col s12 center">

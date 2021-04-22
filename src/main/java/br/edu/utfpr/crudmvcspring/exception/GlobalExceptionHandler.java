@@ -20,7 +20,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
 	private final static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-
 	/**
 	 *
 	 * Tratador genérico de exceptions.
@@ -42,6 +41,15 @@ public class GlobalExceptionHandler {
 		mv.setViewName("error/error-handler");
 		return mv;
 	}
+
+	@ExceptionHandler(value = InvalidParamsException.class)
+	public String invalidException(HttpServletRequest req, Exception e) throws Exception {
+
+		log.error("[URL] : {}", req.getRequestURL(), e);
+		return "error/4xx";
+	}
+
+
 
 	/**
 	 *
@@ -71,27 +79,6 @@ public class GlobalExceptionHandler {
 	public ModelAndView handleError405(HttpServletRequest request, Exception e) {
 		ModelAndView mav = new ModelAndView("error/error-405");
 		mav.addObject("exception", e);
-		return mav;
-	}
-
-	/**
-	 *
-	 * Quando o Spring não encontra um tratador de exception, ele envia 404.
-	 * Antes de enviar, ele gera o NoHandlerFoundException.
-	 * Isso somente se spring.mvc.throw-exception-if-no-handler-found=true
-	 *
-	 * Porém, como já há um arquivo com o nome igual ao código de erro na pasta /error, 404.jsp, este arquivo será apresentado.
-	 * Portanto, este tratamento somente será executado caso o arquivo 404.jsp seja renomeado ou removido.
-	 * @param request
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(value = {NoHandlerFoundException.class})
-	@ResponseStatus(value= HttpStatus.NOT_FOUND)
-	public ModelAndView handleError4xx(HttpServletRequest request, Exception e) {
-		ModelAndView mav = new ModelAndView("error/4xx");
-		mav.addObject("message", e.getMessage());
-		mav.addObject("url", request.getRequestURL());
 		return mav;
 	}
 

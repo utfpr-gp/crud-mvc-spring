@@ -21,7 +21,7 @@ public class Student {
     private Date created;
     private Date updated;
 
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private String name;
 
     @Temporal(TemporalType.DATE)
