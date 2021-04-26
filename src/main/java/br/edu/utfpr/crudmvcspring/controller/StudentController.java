@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -38,8 +39,23 @@ public class StudentController {
 
     @GetMapping
     public ModelAndView showForm() {
-        log.info("Mostrando o formulário de cadastro de aluno com lista de alunos");
+        log.debug("Mostrando o formulário de cadastro de aluno com lista de alunos");
         ModelAndView mv = new ModelAndView("form-students");
+        List<Student> students = studentService.findAll();
+
+        //lista de alunos
+        List<StudentDTO> studentDTOs = students.stream()
+                .map(s -> studentMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+        mv.addObject("students", studentDTOs);
+
+        return mv;
+    }
+
+    @GetMapping
+    public ModelAndView listStudents() {
+        log.debug("Lista de alunos");
+        ModelAndView mv = new ModelAndView("list-students");
         List<Student> students = studentService.findAll();
 
         //lista de alunos
@@ -61,7 +77,7 @@ public class StudentController {
      * @return
      */
     @PostMapping
-    public ModelAndView save(@Validated StudentDTO  dto, Errors errors, RedirectAttributes redirectAttributes){
+    public ModelAndView save(@Validated StudentDTO  dto, BindingResult errors, RedirectAttributes redirectAttributes){
 
         //imprime o código de erro e o nome do atributo
         for(FieldError e: errors.getFieldErrors()){
@@ -78,11 +94,11 @@ public class StudentController {
             return mv;
         }
 
-        log.info("Persistindo o aluno com email {}", dto.getEmail());
-        log.info("Persistindo o DTO {}", dto);
+        log.debug("Persistindo o aluno {} com email {}", dto.getName(), dto.getEmail());
+        log.debug("Persistindo o DTO {}", dto);
 
         Student student = studentMapper.toEntity(dto);
-        log.info("Persistindo o entidade {}", student);
+        log.debug("Persistindo o entidade {}", student);
         studentService.save(student);
 
         //prepara a lista de alunos
@@ -101,7 +117,7 @@ public class StudentController {
     @GetMapping("/{id}")
     public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
-        log.info("Mostrando o formulário de edição de aluno com lista de alunos");
+        log.debug("Mostrando o formulário de edição de aluno com lista de alunos");
         ModelAndView mv = new ModelAndView("form-students");
 
         if(id < 0){
@@ -121,7 +137,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        log.info("Removendo um aluno com id {}", id);
+        log.debug("Removendo um aluno com id {}", id);
         Optional<Student> o = this.studentService.findById(id);
 
         if (!o.isPresent()) {
