@@ -12,7 +12,7 @@
 
     <c:if test="${pagination.totalPages > 1}">
         <ul class="pagination">
-            <li class="waves-effect ${(pagination.startPage <= 1) ? 'disabled': ''}">
+            <li class="waves-effect ${(pagination.currentPage < 1) ? 'disabled': ''}">
                 <a href="${pageContext.request.contextPath}${relativePath}?pag=${pagination.currentPage}"><i class="material-icons">chevron_left</i></a>
             </li>
 

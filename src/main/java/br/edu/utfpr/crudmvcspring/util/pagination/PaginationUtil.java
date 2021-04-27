@@ -15,6 +15,7 @@ public class PaginationUtil {
      */
     public static int getStartPage(int currentPage, int totalPages){
         log.debug("A página corrente é {}", currentPage);
+
         currentPage += 1;
         int remaining = totalPages - currentPage;
         int start = 1;
