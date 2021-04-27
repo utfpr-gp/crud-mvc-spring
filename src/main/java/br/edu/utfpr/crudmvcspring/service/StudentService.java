@@ -3,6 +3,8 @@ package br.edu.utfpr.crudmvcspring.service;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,10 @@ public class StudentService {
 
     public List<Student> findAll(){
         return this.studentRepository.findAll();
+    }
+
+    public Page<Student> findAll(PageRequest pageRequest){
+        return this.studentRepository.findAll(pageRequest);
     }
 
     public Optional<Student> findById(Long id){

@@ -40,5 +40,6 @@
             </div>
         </div>
 
+        <t:pagination pagination="${pagination}" relativePath="/alunos/paginacao"></t:pagination>
     </jsp:body>
 </t:template>

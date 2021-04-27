@@ -1,17 +1,20 @@
 package br.edu.utfpr.crudmvcspring.controller;
 
 import br.edu.utfpr.crudmvcspring.exception.InvalidParamsException;
+import br.edu.utfpr.crudmvcspring.util.pagination.PaginationDTO;
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.mapper.StudentMapper;
 import br.edu.utfpr.crudmvcspring.service.StudentService;
+import br.edu.utfpr.crudmvcspring.util.pagination.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,17 +55,50 @@ public class StudentController {
         return mv;
     }
 
-    @GetMapping
-    public ModelAndView listStudents() {
+    @GetMapping("/paginacao")
+    public ModelAndView listStudents(HttpServletRequest request,
+                                     @RequestParam(value = "pag", defaultValue = "1") int page,
+                                     @RequestParam(value = "siz", defaultValue = "3") int size,
+                                     @RequestParam(value = "ord", defaultValue = "name") String order,
+                                     @RequestParam(value = "dir", defaultValue = "ASC") String direction) {
         log.debug("Lista de alunos");
+
         ModelAndView mv = new ModelAndView("list-students");
-        List<Student> students = studentService.findAll();
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.Direction.valueOf(direction), order);
+        Page<Student> studentPage = studentService.findAll(pageRequest);
 
         //lista de alunos
-        List<StudentDTO> studentDTOs = students.stream()
+        List<StudentDTO> studentDTOs = studentPage.stream()
                 .map(s -> studentMapper.toResponseDto(s))
                 .collect(Collectors.toList());
         mv.addObject("students", studentDTOs);
+
+        PaginationDTO paginationDTO = PaginationUtil.getPaginationDTO(studentPage);
+        mv.addObject("pagination", paginationDTO);
+
+        return mv;
+    }
+
+    @GetMapping("/paginacao-ordenada-id")
+    public ModelAndView listByIdStudents(HttpServletRequest request,
+                                     @RequestParam(value = "pag", defaultValue = "1") int page,
+                                     @RequestParam(value = "siz", defaultValue = "3") int size,
+                                     @RequestParam(value = "ord", defaultValue = "registration") String order,
+                                     @RequestParam(value = "dir", defaultValue = "ASC") String direction) {
+        log.debug("Lista de alunos");
+
+        ModelAndView mv = new ModelAndView("list-students");
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.Direction.valueOf(direction), order);
+        Page<Student> studentPage = studentService.findAll(pageRequest);
+
+        //lista de alunos
+        List<StudentDTO> studentDTOs = studentPage.stream()
+                .map(s -> studentMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+        mv.addObject("students", studentDTOs);
+
+        PaginationDTO paginationDTO = PaginationUtil.getPaginationDTO(studentPage, "/alunos/paginacao-ordenada-id");
+        mv.addObject("pagination", paginationDTO);
 
         return mv;
     }
