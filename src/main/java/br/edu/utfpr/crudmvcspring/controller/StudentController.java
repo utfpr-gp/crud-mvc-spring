@@ -88,7 +88,7 @@ public class StudentController {
         log.debug("Lista de alunos");
 
         ModelAndView mv = new ModelAndView("list-students");
-        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.Direction.valueOf(direction), order);
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.by(order).ascending().and(Sort.by("name")));
         Page<Student> studentPage = studentService.findAll(pageRequest);
 
         //lista de alunos
