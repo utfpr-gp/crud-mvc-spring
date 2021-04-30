@@ -30,7 +30,7 @@ public class Student {
     @Column
     private String course;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @ManyToMany
@@ -61,7 +61,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "registration=" + registration + ", name=" + name + ", course=" + course + '}';
+        return "Student{" + "registration=" + registration + ", name=" + name + ", course=" + course + ", birthDate=" + birthDate +'}';
     }
 
 }

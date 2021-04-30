@@ -2,6 +2,7 @@ package br.edu.utfpr.crudmvcspring.model.mapper;
 
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 
+@Slf4j
 @Component
 public class StudentMapper {
 

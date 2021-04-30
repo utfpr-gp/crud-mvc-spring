@@ -50,6 +50,9 @@ public class StudentDTO {
      * @return
      */
     public Date getBirthDate() {
+        if(birthDate == null){
+            return null;
+        }
         Date d = null;
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

@@ -1,5 +1,6 @@
 package br.edu.utfpr.crudmvcspring;
 
+import br.edu.utfpr.crudmvcspring.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +20,9 @@ import java.util.Locale;
 @ServletComponentScan
 public class CrudMvcSpringApplication {
 
+	@Autowired
+	private StudentService studentService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CrudMvcSpringApplication.class, args);
 	}
@@ -36,6 +40,15 @@ public class CrudMvcSpringApplication {
 	@Bean
 	public LocaleResolver localeResolver(){
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
+	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner() {
+		return args -> {
+
+			//inicializa a base de dados
+			studentService.init();
+		};
 	}
 
 }

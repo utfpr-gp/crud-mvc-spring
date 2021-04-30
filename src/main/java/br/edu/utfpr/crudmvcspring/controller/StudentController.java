@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -23,8 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequestMapping("/alunos")
@@ -45,6 +46,45 @@ public class StudentController {
         log.debug("Mostrando o formulário de cadastro de aluno com lista de alunos");
         ModelAndView mv = new ModelAndView("form-students");
         List<Student> students = studentService.findAll();
+
+        //lista de alunos
+        List<StudentDTO> studentDTOs = students.stream()
+                .map(s -> studentMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+        mv.addObject("students", studentDTOs);
+
+        return mv;
+    }
+
+    @GetMapping("/filtros/{id}")
+    public ModelAndView testQueryMethods(@PathVariable("id") Long id) {
+
+        ModelAndView mv = new ModelAndView("list-students");
+        List<Student> students = null;
+        if(id  == 1L){
+            students = studentService.findByCourseAndName("TSI", "João Brasil");
+        }
+        else if(id == 2){
+            students = studentService.findByBirthDateBetween(new GregorianCalendar(1980, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(1989, Calendar.JANUARY, 1).getTime());
+        }
+        else if(id ==3){
+            students = studentService.findByCourseOrderByName("TSI");
+        }
+        else if(id == 4){
+            students = studentService.findByGenderIsNotNull();
+        }
+        else if(id == 5){
+            students = studentService.findByNameLike("%R%");
+        }
+        else if(id == 6){
+            students = studentService.findByCourse("TSI");
+        }
+        else if(id == 7){
+            PageRequest pageRequest = PageRequest.of(0, 5);
+            students = studentService.findByNameEndsWith("Brasil", pageRequest).getContent();
+        }
+
+        log.debug("Estudantes {} ", students.size() );
 
         //lista de alunos
         List<StudentDTO> studentDTOs = students.stream()
