@@ -49,8 +49,6 @@ public class GlobalExceptionHandler {
 		return "error/4xx";
 	}
 
-
-
 	/**
 	 *
 	 * Tratador de erro mais específico.

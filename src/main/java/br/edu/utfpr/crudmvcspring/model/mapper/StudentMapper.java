@@ -28,7 +28,7 @@ public class StudentMapper {
 
     public StudentDTO toResponseDto(Student entity) {
         StudentDTO dto = mapper.map(entity, StudentDTO.class);
-        dto.setGender(entity.getGender().getName());
+        dto.setGender(entity.getGender() != null ? entity.getGender().getName() : "");
         dto.setBirthDate(this.dateFormat.format(entity.getBirthDate()));
         return dto;
     }
