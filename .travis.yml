@@ -1,7 +1,7 @@
 sudo: required
 language: java
 jdk:
-  - openjdk11
+  - openjdk8
 before_install:
   - chmod +x mvnw
 # git strips the wrapper jar file so we have to force its download during the build
