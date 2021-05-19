@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
+
     @Query("select s from Student s where s.name like %?1")
     List<Student> findByNameEndsWith(String name);
 
