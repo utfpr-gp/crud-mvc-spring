@@ -27,4 +27,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByCourseOrderByName(String course);
     List<Student> findByGenderIsNotNull();
     List<Student> findByNameLike(String name);
+
+
 }
