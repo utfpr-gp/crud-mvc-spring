@@ -28,7 +28,7 @@ public class StudentDTO {
 
     @NotEmpty(message = "A data de nascimento é obrigatória")
     @NotNull(message = "A data de nascimento é obrigatória")
-    @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
+    @Pattern(regexp = "^([012]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
             message = "A data precisa estar formatada como dd/MM/yyyy")
     //@Past(message = "A data de nascimento não é válida")
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
