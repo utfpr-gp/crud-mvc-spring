@@ -7,6 +7,7 @@ import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.mapper.StudentMapper;
 import br.edu.utfpr.crudmvcspring.service.StudentService;
 import br.edu.utfpr.crudmvcspring.util.pagination.PaginationUtil;
+import br.edu.utfpr.crudmvcspring.util.tabs.TabDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,6 +209,42 @@ public class StudentController {
 
         StudentDTO studentDTO = studentMapper.toResponseDto(oStudent.get());
         mv.addObject("dto", studentDTO);
+        return mv;
+    }
+
+    @GetMapping("/relatorio/genero/masculino")
+    public ModelAndView showGenreMResult() {
+        ModelAndView mv = new ModelAndView("genre-report");
+        List<String> students = new ArrayList<>();
+        students.add("João");
+        students.add("Gilberto");
+        students.add("João Junior");
+        mv.addObject("students", students);
+        return mv;
+    }
+
+    @GetMapping("/relatorio/genero/feminino")
+    public ModelAndView showGenreFResult() {
+        ModelAndView mv = new ModelAndView("genre-report");
+        List<String> students = new ArrayList<>();
+        students.add("Maria");
+        students.add("Mariana");
+        students.add("Maria Júlia");
+        mv.addObject("students", students);
+        return mv;
+    }
+
+    @GetMapping("/relatorio")
+    public ModelAndView showGenreReport() {
+
+        log.debug("Mostrando o relatório de gêneros");
+        ModelAndView mv = new ModelAndView("genre-report-container");
+
+        List<TabDTO> tabs = new ArrayList<>();
+        tabs.add(new TabDTO("Masculino", "alunos/relatorio/genero/masculino"));
+        tabs.add(new TabDTO("Feminino", "alunos/relatorio/genero/feminino"));
+
+        mv.addObject("tabs", tabs);
         return mv;
     }
 

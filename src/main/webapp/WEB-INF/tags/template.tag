@@ -1,15 +1,7 @@
-<%-- 
-    Document   : template
-    Created on : Apr 5, 2017, 3:02:46 PM
-    Author     : Roni
---%>
-
 <%@tag description="Template principal" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title" %>
-
 
 <html>
 <head>
@@ -71,16 +63,7 @@
 </main>
 <!-- rodape-->
 <footer class="page-footer blue darken-5">
-    <div class="container">
-        <div class="row">
-            <div class="col s12 center">
-                <a href="http://www.utfpr.edu.br/guarapuava"> <img
-                        src="assets/res/img/utfpr.png" id="utfpr-footer"
-                        class=" img-responsive" height="70px"/>
-                </a>
-            </div>
-        </div>
-    </div>
+
     <div class="footer-copyright">
         <div class="container">
             &#169; Copyright <span id="year"></span> - Todos os direitos
@@ -94,5 +77,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <!--script src="assets/lib/materialize/js/materialize.js"></script-->
 <script src="assets/res/js/index.js"></script>
+
 </body>
 </html>
