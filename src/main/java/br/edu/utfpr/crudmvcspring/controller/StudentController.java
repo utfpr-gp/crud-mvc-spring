@@ -1,6 +1,7 @@
 package br.edu.utfpr.crudmvcspring.controller;
 
 import br.edu.utfpr.crudmvcspring.exception.InvalidParamsException;
+import br.edu.utfpr.crudmvcspring.model.entity.GenderEnum;
 import br.edu.utfpr.crudmvcspring.util.pagination.PaginationDTO;
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
@@ -52,6 +53,7 @@ public class StudentController {
         List<StudentDTO> studentDTOs = students.stream()
                 .map(s -> studentMapper.toResponseDto(s))
                 .collect(Collectors.toList());
+
         mv.addObject("students", studentDTOs);
 
         return mv;
@@ -230,6 +232,12 @@ public class StudentController {
         students.add("Maria");
         students.add("Mariana");
         students.add("Maria Júlia");
+        students.add("Maria");
+        students.add("Mariana");
+        students.add("Maria Júlia");
+        students.add("Maria");
+        students.add("Mariana");
+        students.add("Maria Júlia");
         mv.addObject("students", students);
         return mv;
     }
@@ -247,6 +255,40 @@ public class StudentController {
         mv.addObject("tabs", tabs);
         return mv;
     }
+
+    @GetMapping("/relatorio-tab-estatico")
+    public ModelAndView showPageReport() {
+
+        log.debug("Mostrando o relatório de gêneros");
+        ModelAndView mv = new ModelAndView("tabs-container");
+
+        return mv;
+    }
+
+    @GetMapping("/relatorio/masculino/paginacao")
+    public ModelAndView showGenreMPageResult(HttpServletRequest request,
+                                             @RequestParam(value = "pag", defaultValue = "1") int page,
+                                             @RequestParam(value = "siz", defaultValue = "3") int size,
+                                             @RequestParam(value = "ord", defaultValue = "registration") String order,
+                                             @RequestParam(value = "dir", defaultValue = "ASC") String direction){
+
+        ModelAndView mv = new ModelAndView("genre-report");
+
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.by(order).ascending().and(Sort.by("name")));
+        //Page<Student> studentPage = studentService.findMasculine(GenderEnum.MASCULINE, pageRequest);
+        Page<Student> studentPage = studentService.findAll(pageRequest);
+        //lista de alunos
+        List<StudentDTO> studentDTOs = studentPage.stream()
+                .map(s -> studentMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+        mv.addObject("students", studentDTOs);
+
+        PaginationDTO paginationDTO = PaginationUtil.getPaginationDTO(studentPage, "/alunos/relatorio/masculino/paginacao");
+        mv.addObject("pagination", paginationDTO);
+        return mv;
+    }
+
+
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {

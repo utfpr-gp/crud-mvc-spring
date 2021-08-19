@@ -1,5 +1,6 @@
 package br.edu.utfpr.crudmvcspring.service;
 
+import br.edu.utfpr.crudmvcspring.model.entity.GenderEnum;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import br.edu.utfpr.crudmvcspring.model.repository.StudentRepository;
 import br.edu.utfpr.crudmvcspring.util.CPFUtil;
@@ -34,6 +35,10 @@ public class StudentService {
 
     public Page<Student> findAll(PageRequest pageRequest){
         return this.studentRepository.findAll(pageRequest);
+    }
+
+    public Page<Student> findMasculine(GenderEnum genderEnum, PageRequest pageRequest){
+        return this.studentRepository.findByGender(genderEnum, pageRequest);
     }
 
     public Page<Student> findAll(Pageable pageRequest){

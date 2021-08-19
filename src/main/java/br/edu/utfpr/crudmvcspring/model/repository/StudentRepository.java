@@ -1,5 +1,6 @@
 package br.edu.utfpr.crudmvcspring.model.repository;
 
+import br.edu.utfpr.crudmvcspring.model.entity.GenderEnum;
 import br.edu.utfpr.crudmvcspring.model.entity.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByBirthDateBetween(Date d1, Date d2);
     List<Student> findByCourseOrderByName(String course);
     List<Student> findByGenderIsNotNull();
+    Page<Student> findByGender(GenderEnum genderEnum, Pageable pageable);
     List<Student> findByNameLike(String name);
 
 
