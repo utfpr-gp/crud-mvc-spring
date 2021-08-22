@@ -3,6 +3,8 @@ package br.edu.utfpr.crudmvcspring;
 import br.edu.utfpr.crudmvcspring.service.StudentService;
 import br.edu.utfpr.crudmvcspring.service.UniversityService;
 import br.edu.utfpr.crudmvcspring.util.WizardSessionUtil;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -52,6 +54,15 @@ public class CrudMvcSpringApplication {
 			studentService.init();
 			universityService.init();
 		};
+	}
+
+	@Bean
+	public Cloudinary cloudinary(){
+		return new Cloudinary(ObjectUtils.asMap(
+				"cloud_name","dgueb0wir",
+				"api_key", "546318655587864",
+				"api_secret", "UPEpuVA_PWlah9B5BrkZMx7E5VE"
+		));
 	}
 
 }

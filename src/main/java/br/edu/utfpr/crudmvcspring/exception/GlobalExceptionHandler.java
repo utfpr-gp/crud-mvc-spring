@@ -12,6 +12,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -91,5 +92,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = {DataIntegrityViolationException.class, ConstraintViolationException.class})
 	public String handleDatabaseException(HttpServletRequest req, Exception e) {
 		return "error/error-database";
+	}
+
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ModelAndView handleMaxSizeException(Exception e) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("message", "O tamanho de imagem excedeu o máximo permitido de 1MB.");
+		mv.setViewName("error/error-handler");
+		return mv;
 	}
 }
