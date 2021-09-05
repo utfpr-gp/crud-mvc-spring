@@ -33,6 +33,9 @@ public class Student {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(name = "certificate")
+    private String certificateURL;
+
     @ManyToMany
     private Set<Subject> subjects;
 

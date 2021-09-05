@@ -4,6 +4,8 @@ package br.edu.utfpr.crudmvcspring.controller;
 import br.edu.utfpr.crudmvcspring.exception.InvalidParamsException;
 import br.edu.utfpr.crudmvcspring.model.dto.ImageDTO;
 import br.edu.utfpr.crudmvcspring.model.dto.StudentDTO;
+import br.edu.utfpr.crudmvcspring.model.entity.Student;
+import br.edu.utfpr.crudmvcspring.service.StudentService;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.cloudinary.Cloudinary;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.security.PermitAll;
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +31,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 //@CommonsLog
@@ -36,6 +41,9 @@ public class ImageController {
 
     @Autowired
     private Cloudinary cloudinary;
+
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping
     public String showIndex() {
@@ -53,7 +61,7 @@ public class ImageController {
             throw new InvalidParamsException("A imagem não está em um formato suportado.");
         }
 
-        Path path = Files.createTempFile("temp", dto.getImageFile().getOriginalFilename());
+        Path path = Files.createTempFile("spring", dto.getImageFile().getOriginalFilename());
         System.out.println("Caminho temporário: " + path);
 
         File file = path.toFile();
@@ -72,6 +80,8 @@ public class ImageController {
 
 
     }
+
+
 
     public boolean isValidateImage(MultipartFile image){
         List<String> contentTypes = Arrays.asList("image/png", "image/jpg", "image/jpeg");

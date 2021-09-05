@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
@@ -29,6 +30,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByGenderIsNotNull();
     Page<Student> findByGender(GenderEnum genderEnum, Pageable pageable);
     List<Student> findByNameLike(String name);
+
+    Optional<Student> findByEmail(String email);
 
 
 }
