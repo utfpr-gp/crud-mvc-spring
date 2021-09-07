@@ -14,6 +14,14 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty qrCode}">
+            <div class="row">
+                <div class="col s12">
+                    <img src="${qrCode}" width="300px">
+                </div>
+            </div>
+        </c:if>
+
         <div class="row">
             <div class="col s12">
                 <a href="${certificate}">Clique para visualizar o certificado</a>

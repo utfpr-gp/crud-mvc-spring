@@ -70,22 +70,12 @@ public class CrudMvcSpringApplication {
 		};
 	}
 
-//	@Bean
-//	public Cloudinary cloudinary(){
-//		return new Cloudinary(ObjectUtils.asMap(
-//				"cloud_name","dgueb0wir",
-//				"api_key", "546318655587864",
-//				"api_secret", "UPEpuVA_PWlah9B5BrkZMx7E5VE"
-//		));
-//	}
-
 	@Bean
 	public Cloudinary cloudinary(){
 		return new Cloudinary(ObjectUtils.asMap(
-				"cloud_name","imovelandia",
-				"api_key", "411178834613179",
-				"api_secret", "dXKqah7iauuraHYG2tghyK6HPYk"
+				"cloud_name","dgueb0wir",
+				"api_key", "546318655587864",
+				"api_secret", "UPEpuVA_PWlah9B5BrkZMx7E5VE"
 		));
 	}
-
 }
